@@ -6,14 +6,14 @@
   <link rel="stylesheet" href="src/output.css">
   <title>Virtual Workspace</title>
 </head>
-<body >
+<body class=" " >
   <main >
     <section class="overflow-y-hidden h-screen w-screen flex">
       <div class="w-[30%] h-full m-4 ">
         <h1 class="font-bold text-3xl mb-2.5 text-center">Staff Members</h1>
         <div id="placeWorker" class=""></div>
         
-        <button class="px-8 py-2 bg-green-500 rounded-2xl  block mx-auto ">Add new worker</button>
+        <button id="addWorcker" class="px-8 py-2 bg-green-500 rounded-2xl  block mx-auto ">Add new worker</button>
 
       </div>
 
@@ -28,10 +28,76 @@
 
     </section>
 
-    <section>
-      
+    <section id="sectionForm" class="hidden absolute top-0 left-0  w-screen h-screen bg-black/50">
+      <div id="containerform" class=" bg-white  p-6 rounded-4xl w-[40%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[90%] ">
+        <div class="flex justify-between">
+          <h1 class="font-bold text-3xl">Welcome</h1>
+          <svg id="iconClosse" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </div>
+        <form action="" class="flex flex-col font-sans gap-1.5 ">
+          <label class="font-bold text-lg" for="NameEmployer">Nom</label>
+          <input class="font- border outline-none px-3 py-1 rounded-3xl focus:border-green-400 " id="NameEmployer" type="text" class="">
+
+          <label class="font-bold text-lg" for="Role">Role</label>
+          <select class="border outline-none focus:border-green-400 px-3 py-1 rounded-2xl  " name="" id="Role" >
+             <option value="" disabled selected hidden>Choisir un rôle</option>
+            <option value="Receptionnistes">Receptionnistes</option>
+            <option value="Techniciens IT">Techniciens IT</option>
+            <option value="Agents de securite">Agents de securite</option>
+            <option value="Manager">Manager</option>
+            <option value="Autres roles">Autres roles</option>
+          </select>
+
+          <label class="font-bold text-lg" for="Photo">Photo (URL)</label>
+          <input class="font- border outline-none px-3 py-1 rounded-3xl focus:border-green-400 " id="Photo" type="url" placeholder="https://example.com">
+
+          <div id="displayImag" class="size-20 rounded-full border ">
+             <!-- <img src="" alt="img add in the input">  -->
+          </div>
+          
+          <div class="flex justify-between ">
+            <h3 class="font-bold text-2xl">Expériences professionnelles</h3>
+            <button id="experience" class="px-5 py-1 rounded-xl bg-green-400 ">Add</button>
+          </div>
+<!--           
+          <div class="flex">
+            <div class="my-3.5">
+
+              <label class="font-bold text-lg" for="enterprise">Enterprise :</label>
+              <input class="font- border outline-none px-5 py-2 rounded-3xl focus:border-green-400 max-w-1/2" type="text" id="enterprise">
+
+              <label class="font-bold text-lg" for="post">post : </label>
+              <input class="font- border outline-none px-3 py-1 rounded-3xl focus:border-green-400 max-w-1/2" id="post" type="text" >
+
+            </div>
+
+            <div class="my-3.5">
+              <label class="font-bold text-lg" for="dateDebut ">date d'ebut</label>
+              <input class="font- border outline-none px-3 py-1 rounded-3xl focus:border-green-400 max-w-1/2" id="dateDebut" type="date" >
+              
+              <label class="font-bold text-lg" for="dateFin">date fin</label>
+              <input class="font- border outline-none px-3 py-1 rounded-3xl focus:border-green-400 max-w-1/2" id="dateFin" type="date" >
+
+            </div>
+          </div> -->
+
+
+          <label class="font-bold text-lg" for="Email">Email</label>
+          <input class="font- border outline-none px-3 py-1 rounded-3xl focus:border-green-400 " id="Email" type="text">
+
+          <label class="font-bold text-lg" for="Telephone">Telephone</label>
+          <input class="font- border outline-none px-3 py-1 rounded-3xl focus:border-green-400 " id="Telephone" type="text">
+
+          <button type="submit" class="bg-green-600 py-3 rounded-3xl  ">Add the employer</button>
+
+        </form>
+      </div>
     </section>
   </main>
   
+
+<script src="/src/js/script.js" ></script>
 </body>
 </html>
