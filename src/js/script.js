@@ -1,10 +1,10 @@
 
 const sectionform = document.getElementById("sectionForm")
-const photo = document.getElementById("Photo")
-const butAddworck = document.querySelector("#addWorcker")
+const photoinp = document.getElementById("Photo")
+const butpopup = document.querySelector("#popupform")
 const clossbut = document.getElementById("iconClosse")
-const addexpe = document.getElementById("experience")
-
+const addexpe = document.getElementById("addexperience")
+const addempl = document.getElementById("addemployer")
 
 let employer = []
 
@@ -32,6 +32,24 @@ function deletexperenceform() {
 }
 
 
+
+function addexperience() {
+    let formadd = document.querySelectorAll(".formexper")
+    let experience = [] ;
+    formadd.forEach((ele) => {
+        let detai = {
+           enterprise : ele.querySelector(".enterprise").value ,
+           post : ele.querySelector(".post").value ,
+           datedebut : ele.querySelector(".dateDebut").value,
+           datefin: ele.querySelector(".dateFin").value
+        }
+        experience.push(detai)
+    })
+    return experience ;
+}
+
+
+
 addexpe.addEventListener("click" , () => {
 
     let container = document.createElement("div")
@@ -40,28 +58,28 @@ addexpe.addEventListener("click" , () => {
 
     container.innerHTML = `
             <div class="flex flex-col">
-              <label class="font-bold text-lg" for="enterprise">Enterprise</label>
-              <input class="border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
-                    type="text" id="enterprise" placeholder="Nom de l'entreprise">
+              <label class="font-bold text-lg" >Enterprise</label>
+              <input class="enterprise border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
+                    type="text" placeholder="Nom de l'entreprise">
             </div>
 
             <div class="flex flex-col">
-              <label class="font-bold text-lg" for="post">Poste</label>
-              <input class="border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
+              <label class="font-bold text-lg" >Poste</label>
+              <input class="post border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
                     id="post" type="text" placeholder="Titre du poste">
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div class="flex flex-col">
-                <label class="font-bold text-lg" for="dateDebut">Date début</label>
-                <input class="border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
-                      id="dateDebut" type="date">
+                <label class="font-bold text-lg" >Date début</label>
+                <input class="dateDebut border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
+                       type="date">
               </div>
 
               <div class="flex flex-col">
-                <label class="font-bold text-lg" for="dateFin">Date fin</label>
-                <input class="border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
-                      id="dateFin" type="date">
+                <label class="font-bold text-lg" >Date fin</label>
+                <input class="dateFin border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
+                       type="date">
               </div>
             </div>
     `
@@ -69,12 +87,11 @@ addexpe.addEventListener("click" , () => {
 })
 
 
-
-photo.addEventListener("input" , (e) => {
+photoinp.addEventListener("input" , (e) => {
     affichPhoto(e.currentTarget.value)
 })
 
-butAddworck.addEventListener("click" , () => {
+butpopup.addEventListener("click" , () => {
     sectionform.classList.toggle("hidden")
     
 })
@@ -88,6 +105,24 @@ sectionform.addEventListener("click" , (e) => {
         sectionform.classList.toggle("hidden")
         deletexperenceform();
     }
+})
+
+addempl.addEventListener("click" , (e) => {
+    e.preventDefault();
+
+    
+    let allexper = addexperience()
+    let empl = {
+        nam : document.querySelector("#NameEmployer").value , 
+        role : document.querySelector("#Role").value ,
+        photo : photoinp.value ,
+        email : document.querySelector("#Email").value ,
+        Telephone : document.querySelector("#Telephone").value ,
+        experience : allexper
+    }
+    console.log(empl)
+    
+    sectionform.classList.toggle("hidden")
 })
 
 
