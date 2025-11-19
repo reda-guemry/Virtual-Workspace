@@ -6,6 +6,7 @@ const clossbut = document.getElementById("iconClosse")
 const addexpe = document.getElementById("addexperience")
 const addempl = document.getElementById("addemployer")
 const rooms = Array.from(document.querySelector("#worckspace").children)
+let placecart = document.querySelector("#placeWorker");
 
 let counterID = 0;
 let employer = [];
@@ -70,24 +71,28 @@ function clearinput() {
 }
 
 
-function affichercart(append) {
+function affichercart() {
+    placecart.innerHTML = ``
     employer.forEach((ele) => {
-        let cart = document.createElement("div");
-        cart.className = "flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200"
-        cart.innerHTML = `
-            <div class="rounded-full overflow-hidden size-14 ">
-              <img src="${ele.photo}" alt="">
-            </div>
+        if(ele.room == "null"){
+            let cart = document.createElement("div");
+            cart.className = "flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200"
+            cart.innerHTML = `
+                <div class="rounded-full overflow-hidden size-14 ">
+                <img src="${ele.photo}" alt="">
+                </div>
 
-            <div class="flex-1 min-w-0">
-              <h2 class="font-semibold text-gray-800 text-sm">${ele.nam}</h2>
-              <p class="text-gray-500 text-xs">${ele.role}</p>
-            </div>
+                <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-gray-800 text-sm">${ele.nam}</h2>
+                <p class="text-gray-500 text-xs">${ele.role}</p>
+                </div>
 
-            <button data-id="${ele.id}" class="px-3 py-1.5 bg-green-500 text-white text-sm rounded-md hover:bg-green-600 ">details</button>
-        `
-        append.appendChild(cart)
+                <button data-id="${ele.id}" class="px-3 py-1.5 bg-green-500 text-white text-sm rounded-md hover:bg-green-600 ">details</button>
+            `
+            placecart.appendChild(cart)
+        }
     })
+
 }
 
 function afficherdetailsofworckers(idset) {
@@ -150,8 +155,8 @@ function afficherdetailsofworckers(idset) {
 }
 
 
-function formadd(room) {
-    let emplafich = employer.filter(ele => ele.room == null && romandrolle[room].includes(ele.role)) ;
+function formadd(room , romclick) {
+    let emplafich = employer.filter(ele => ele.room == "null" && romandrolle[room].includes(ele.role)) ;
     
     let popupaffich = document.createElement("section")
     popupaffich.className = "absolute top-0 left-0  w-screen h-screen bg-black/50"
@@ -200,33 +205,43 @@ function formadd(room) {
     document.querySelector("#placecard").addEventListener("click" , (e) => {
         if(e.target.matches("[data-id]")){
             let emplafich = employer.find(ele => ele.id == e.target.dataset.id)
-            ajouteraroom(emplafich , popupaffich)
+            emplafich.room = room ;
+            ajouteraroom(emplafich , popupaffich , romclick)
         }
     })
 }
 
 
-function ajouteraroom(empl , section) {
+function ajouteraroom(empl , section , romclick) {
     section.remove() ;
+    affichercart();
     let cart = document.createElement("div")
-    cart.className = "flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200";
+    cart.className = "flex  items-center  gap-3 px-2 py-1 my-1 bg-white rounded-3xl shadow-md border border-gray-200";
     cart.innerHTML = `
-        <div class="rounded-full overflow-hidden size-14 ">
-                <img src="${ele.photo}" alt="">
-                </div>
-                
-                <div class="flex-1 min-w-0">
-                <h2 class="font-semibold text-gray-800 text-sm">${ele.nam}</h2>
-                <p class="text-gray-500 text-xs">${ele.role}</p>
-                </div>
-                
-                <button data-id="${ele.id}" class="cursor-pointer text-red-500 hover:text-red-600 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                </button>
+        <div class="rounded-full overflow-hidden size-8 border border-gray-600 ">
+        <img src="${empl.photo}" alt="">
+        </div>
+        
+        <div class=" min-w-0">
+        <h2 class="font-semibold text-gray-800 text-[10px]">${empl.nam}</h2>
+        <p class="text-gray-500 text-[10px]">${empl.role}</p>
+        </div>
+        
+        <button class="returnsidebar cursor-pointer text-red-500 hover:text-red-600 ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+        </button>
     `
-    
+    romclick.appendChild(cart)
+    romclick.addEventListener("click" , (e) => {
+        console.log(e.target.classList.contains("returnsidebar"))
+        // if(e.target.dataset.id){
+        //     empl.room = "null"
+        //     e.target.parentElement.remove();
+        // } 
+    })
+
 }
 
 
@@ -242,27 +257,23 @@ addexpe.addEventListener("click" , () => {
     container.innerHTML = `
             <div class="flex flex-col">
               <label class="font-bold text-lg" >Enterprise</label>
-              <input class="enterprise border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
-                    type="text" placeholder="Nom de l'entreprise">
+              <input class="enterprise border outline-none px-3 py-2 rounded-3xl focus:border-green-400" type="text" placeholder="Nom de l'entreprise">
             </div>
 
             <div class="flex flex-col">
               <label class="font-bold text-lg" >Poste</label>
-              <input class="post border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
-                    id="post" type="text" placeholder="Titre du poste">
+              <input class="post border outline-none px-3 py-2 rounded-3xl focus:border-green-400" id="post" type="text" placeholder="Titre du poste">
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div class="flex flex-col">
                 <label class="font-bold text-lg" >Date début</label>
-                <input class="dateDebut border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
-                       type="date">
+                <input class="dateDebut border outline-none px-3 py-2 rounded-3xl focus:border-green-400" type="date">
               </div>
 
               <div class="flex flex-col">
                 <label class="font-bold text-lg" >Date fin</label>
-                <input class="dateFin border outline-none px-3 py-2 rounded-3xl focus:border-green-400" 
-                       type="date">
+                <input class="dateFin border outline-none px-3 py-2 rounded-3xl focus:border-green-400" type="date">
               </div>
             </div>
     `
@@ -292,7 +303,7 @@ sectionform.addEventListener("click" , (e) => {
 
 addempl.addEventListener("click" , (e) => {
     e.preventDefault();
-    let placecart = document.querySelector("#placeWorker");
+    
     
     let allexper = addexperience()
     let empl = {
@@ -303,13 +314,12 @@ addempl.addEventListener("click" , (e) => {
         telephone : document.querySelector("#Telephone").value ,
         experience : allexper,
         id : counterID++ , 
-        room : null
+        room : "null"
     }
     
     employer.push(empl);
 
-    placecart.innerHTML = ``
-    affichercart(placecart);
+    affichercart();
 
     sectionform.classList.toggle("hidden");
     deletexperenceform();
@@ -324,7 +334,10 @@ document.querySelector("#placeWorker").addEventListener("click" , (e) => {
 
 rooms.forEach((ele) => {
     ele.addEventListener("click" , (e) => {
-        formadd(e.target.dataset.room);
+        if(e.target.dataset.room){
+            formadd(e.target.dataset.room , e.currentTarget);
+
+        }
     })
 })
 
