@@ -1,4 +1,16 @@
 
+fetch("/src/role.json")
+    .then(reponse => reponse.json())
+    .then(data => {
+        data.forEach((ele) => {
+            let opt = document.createElement("option")
+            opt.value = ele
+            opt.textContent = ele 
+            
+        })
+    })
+
+
 const sectionform = document.getElementById("sectionForm")
 const photoinp = document.getElementById("Photo")
 const butpopup = document.querySelector("#popupform")
