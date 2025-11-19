@@ -227,21 +227,14 @@ function ajouteraroom(empl , section , romclick) {
         <p class="text-gray-500 text-[10px]">${empl.role}</p>
         </div>
         
-        <button class="returnsidebar cursor-pointer text-red-500 hover:text-red-600 ">
+        <button data-id="${empl.id}" class="returnsidebar cursor-pointer text-red-500 hover:text-red-600 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
         </button>
     `
     romclick.appendChild(cart)
-    romclick.addEventListener("click" , (e) => {
-        console.log(e.target.classList.contains("returnsidebar"))
-        // if(e.target.dataset.id){
-        //     empl.room = "null"
-        //     e.target.parentElement.remove();
-        // } 
-    })
-
+    
 }
 
 
@@ -338,6 +331,16 @@ rooms.forEach((ele) => {
             formadd(e.target.dataset.room , e.currentTarget);
 
         }
+        if(e.target.closest("[data-id]")){
+            let idremv = e.target.closest("[data-id]").dataset.id
+            console.log(idremv)
+            let removeele = employer.find(ele => ele.id == idremv)
+            console.log(removeele)
+            removeele.room = "null"
+            e.target.closest("[data-id]").parentElement.remove();
+            affichercart();
+        }
     })
 })
+
 
