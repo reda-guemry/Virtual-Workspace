@@ -6,6 +6,7 @@ const clossbut = document.getElementById("iconClosse")
 const addexpe = document.getElementById("addexperience")
 const addempl = document.getElementById("addemployer")
 
+let counterID = 0;
 let employer = []
 
 function affichPhoto(url) {
@@ -23,7 +24,6 @@ function addnewemployaer() {
     const email = document.getElementById("Email")
     const numbertele = document.getElementById("Telephone")
 
-    let card
 
 }
 function deletexperenceform() {
@@ -48,6 +48,86 @@ function addexperience() {
     return experience ;
 }
 
+function clearinput() {
+    document.querySelector("#NameEmployer").value = "" 
+    document.querySelector("#Role").value = ""
+    photoinp.value = ""
+    document.querySelector("#Email").value = ""
+    document.querySelector("#Telephone").value = ""
+    document.querySelector("#displayImag").innerHTML = "";
+}
+
+
+function affichercart(append) {
+    employer.forEach((ele) => {
+        let cart = document.createElement("div");
+        cart.className = "flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200"
+        cart.innerHTML = `
+            <div class="rounded-full overflow-hidden size-14 ">
+              <img src="${ele.photo}" alt="">
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <h2 class="font-semibold text-gray-800 text-sm">${ele.nam}</h2>
+              <p class="text-gray-500 text-xs">${ele.role}</p>
+            </div>
+
+            <button data-id="${ele.id}" class="px-3 py-1.5 bg-green-500 text-white text-sm rounded-md hover:bg-green-600 ">details</button>
+        `
+        append.appendChild(cart)
+    })
+}
+
+function afficherdetailsofworckers(idset) {
+    let found = employer.find((ele) => ele.id == idset)
+    let sectiondetails = document.createElement("section")
+    sectiondetails.className = "absolute top-0 left-0  w-screen h-screen bg-black/50"
+    sectiondetails.innerHTML = `
+        <div class="bg-white p-8 rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[90%] max-w-lg max-h-[90vh] overflow-y-auto shadow-xl">
+            
+            <button class="float-right text-gray-400 hover:text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="size-24 rounded-full overflow-hidden mx-auto mb-3 border-2 border-gray-200">
+                    <img src="${found.photo }" alt="${found.name}" class="w-full h-full ">
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">${found.name}</h2>
+                <p class="text-gray-600">${found.role}</p>
+            </div>
+
+            <div class="space-y-2 mb-6">
+                <div class="flex items-center gap-2 text-gray-700">
+                    <span class="font-medium">Email: <span>${found.email}</span></span>
+                    
+                </div>
+                <div class="flex items-center gap-2 text-gray-700">
+                    <span class="font-medium">Téléphone: <span>${found.telephone}</span></span>
+
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg text-gray-800 mb-3">Expériences</h3>
+                ${found.experiences && found.experiences.length > 0 
+                    ? found.experiences.map(exp => `
+                        <div class="mb-3 p-3 bg-gray-50 rounded-lg">
+                            <p class="font-semibold text-gray-800">${exp.poste}</p>
+                            <p class="text-sm text-gray-600">${exp.entreprise}</p>
+                            <p class="text-xs text-gray-500">${exp.duree}</p>
+                        </div>
+                    `).join('')
+                    : '<p class="text-gray-500 text-center py-3">Aucune expérience</p>'
+                }
+            </div>
+
+        </div>
+    `
+    document.body.appendChild(sectiondetails)
+}
 
 
 addexpe.addEventListener("click" , () => {
@@ -109,7 +189,7 @@ sectionform.addEventListener("click" , (e) => {
 
 addempl.addEventListener("click" , (e) => {
     e.preventDefault();
-
+    let placecart = document.querySelector("#placeWorker");
     
     let allexper = addexperience()
     let empl = {
@@ -118,13 +198,25 @@ addempl.addEventListener("click" , (e) => {
         photo : photoinp.value ,
         email : document.querySelector("#Email").value ,
         Telephone : document.querySelector("#Telephone").value ,
-        experience : allexper
+        experience : allexper,
+        id : counterID++
     }
-    console.log(empl)
     
-    sectionform.classList.toggle("hidden")
+    employer.push(empl);
+
+    placecart.innerHTML = ``
+    affichercart(placecart);
+
+    sectionform.classList.toggle("hidden");
+    deletexperenceform();
+    clearinput();
 })
 
+document.querySelector("#placeWorker").addEventListener("click" , (e) => {
+    if(e.target.matches("button")){
+        afficherdetailsofworckers(e.target.dataset.id)
+    }
+})
 
 
 
