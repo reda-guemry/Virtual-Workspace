@@ -199,13 +199,33 @@ function formadd(room) {
     })
     document.querySelector("#placecard").addEventListener("click" , (e) => {
         if(e.target.matches("[data-id]")){
-            ajouteraroom(e.target.dataset.id)
+            let emplafich = employer.find(ele => ele.id == e.target.dataset.id)
+            ajouteraroom(emplafich , popupaffich)
         }
     })
 }
 
 
-function ajouteraroom() {
+function ajouteraroom(empl , section) {
+    section.remove() ;
+    let cart = document.createElement("div")
+    cart.className = "flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200";
+    cart.innerHTML = `
+        <div class="rounded-full overflow-hidden size-14 ">
+                <img src="${ele.photo}" alt="">
+                </div>
+                
+                <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-gray-800 text-sm">${ele.nam}</h2>
+                <p class="text-gray-500 text-xs">${ele.role}</p>
+                </div>
+                
+                <button data-id="${ele.id}" class="cursor-pointer text-red-500 hover:text-red-600 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                </button>
+    `
     
 }
 
