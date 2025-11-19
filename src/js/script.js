@@ -5,6 +5,7 @@ const butpopup = document.querySelector("#popupform")
 const clossbut = document.getElementById("iconClosse")
 const addexpe = document.getElementById("addexperience")
 const addempl = document.getElementById("addemployer")
+const rooms = Array.from(document.querySelector("#worckspace").children)
 
 let counterID = 0;
 let employer = [];
@@ -134,8 +135,7 @@ function afficherdetailsofworckers(idset) {
 
             <div class="placeexperience">
                 <h3 class="font-bold text-lg text-gray-800 mb-3">Expériences</h3>
-                ${found.experience && found.experience.length > 0 ? experence : '<p class="text-gray-500 text-center py-3">Aucune expérience</p>'
-                }
+                ${found.experience && found.experience.length > 0 ? experence : `<p class="text-gray-500 text-center py-3">Aucune expérience</p>` }
             </div>
 
         </div>
@@ -149,9 +149,69 @@ function afficherdetailsofworckers(idset) {
     })
 }
 
-function formadd() {
+
+function formadd(room) {
+    let emplafich = employer.filter(ele => ele.room == null && romandrolle[room].includes(ele.role)) ;
+    
+    let popupaffich = document.createElement("section")
+    popupaffich.className = "absolute top-0 left-0  w-screen h-screen bg-black/50"
+
+    let cart = "";
+    emplafich.forEach((ele) => {
+        cart += `
+            <div class ="flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200">
+                <div class="rounded-full overflow-hidden size-14 ">
+                <img src="${ele.photo}" alt="">
+                </div>
+                
+                <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-gray-800 text-sm">${ele.nam}</h2>
+                <p class="text-gray-500 text-xs">${ele.role}</p>
+                </div>
+                
+                <button data-id="${ele.id}" class="px-3 py-1.5 bg-green-500 text-white text-sm rounded-md hover:bg-green-600 ">Ajjouter</button>
+            </div>
+        `
+    })
+    popupaffich.innerHTML = `
+        <div class="allfomr bg-white p-8 rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[50%] max-h-[90vh] overflow-y-auto ">
+            <div >
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-3xl">Employer disponible</h3>
+                    <button class="closform cursor-pointer text-gray-400 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="placecard">
+                    ${emplafich.length > 0 ? cart : `<p class="text-gray-500 text-center text-xl py-3">Aucune employer for this room</p>`}
+                </div>
+            </div>
+        </div>
+    `
+    document.querySelector("main").appendChild(popupaffich)
+    popupaffich.querySelector(".closform").addEventListener("click" , () => popupaffich.remove())
+    popupaffich.addEventListener("click" , (e) => {
+        if(!popupaffich.querySelector(".allfomr").contains(e.target)){
+            popupaffich.remove()
+        }
+    })
+    document.querySelector("#placecard").addEventListener("click" , (e) => {
+        if(e.target.matches("[data-id]")){
+            ajouteraroom(e.target.dataset.id)
+        }
+    })
+}
+
+
+function ajouteraroom() {
     
 }
+
+
+
+
 
 addexpe.addEventListener("click" , () => {
 
@@ -242,9 +302,9 @@ document.querySelector("#placeWorker").addEventListener("click" , (e) => {
     }
 })
 
-document.querySelector("#worckspace").children.forEach((ele) => {
+rooms.forEach((ele) => {
     ele.addEventListener("click" , (e) => {
-        formadd(e.dataset.room);
+        formadd(e.target.dataset.room);
     })
 })
 
