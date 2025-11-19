@@ -7,7 +7,18 @@ const addexpe = document.getElementById("addexperience")
 const addempl = document.getElementById("addemployer")
 
 let counterID = 0;
-let employer = []
+let employer = [];
+
+const romandrolle = {
+    conference : [ "Manager" , "Autres roles" , "Nettoyage" , "Techniciens IT"] ,
+    Reception : ["Receptionnistes" , "Manager" , "Nettoyage" ] ,
+    serveurs : ["Nettoyage" , "Techniciens IT" , "Manager"] ,
+    securite : ["Agents de securite" , "Manager" ,"Nettoyage"],
+    personnel : ["Autres roles" , "Nettoyage" ,"Manager"] ,
+    archives  : ["Manager"]
+}
+
+
 
 function affichPhoto(url) {
     let plaveThePhoto = document.querySelector("#displayImag")
@@ -138,6 +149,9 @@ function afficherdetailsofworckers(idset) {
     })
 }
 
+function formadd() {
+    
+}
 
 addexpe.addEventListener("click" , () => {
 
@@ -208,7 +222,8 @@ addempl.addEventListener("click" , (e) => {
         email : document.querySelector("#Email").value ,
         telephone : document.querySelector("#Telephone").value ,
         experience : allexper,
-        id : counterID++
+        id : counterID++ , 
+        room : null
     }
     
     employer.push(empl);
@@ -227,5 +242,9 @@ document.querySelector("#placeWorker").addEventListener("click" , (e) => {
     }
 })
 
-
+document.querySelector("#worckspace").children.forEach((ele) => {
+    ele.addEventListener("click" , (e) => {
+        formadd(e.dataset.room);
+    })
+})
 
