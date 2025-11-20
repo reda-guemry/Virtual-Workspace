@@ -249,6 +249,22 @@ function ajouteraroom(empl , section , romclick) {
 }
 
 
+function validationsform() {
+    const verifname = /^[A-Za-z ]+$/
+    const verifurl = /^(https?:\/\/ )?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const verifemail = /^/
+    
+    if(!verifname.test(document.querySelector("#NameEmployer").value )){
+        alert("name is faut")
+        return false ;
+    }else if (!verifurl.test(photoinp.value)){
+        alert("url is faut")
+        return false ;
+    }
+
+    return true ;
+}
+
 
 
 
@@ -308,8 +324,14 @@ sectionform.addEventListener("click" , (e) => {
 addempl.addEventListener("click" , (e) => {
     e.preventDefault();
     
-    
     let allexper = addexperience()
+
+    let valid = validationsform()
+
+    if(!valid){
+        return
+    }
+
     let empl = {
         nam : document.querySelector("#NameEmployer").value , 
         role : role.value ,
@@ -320,6 +342,8 @@ addempl.addEventListener("click" , (e) => {
         id : counterID++ , 
         room : "null"
     }
+
+
     
     employer.push(empl);
 
