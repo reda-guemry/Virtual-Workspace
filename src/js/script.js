@@ -2,13 +2,14 @@
 fetch("/src/role.json")
     .then(reponse => reponse.json())
     .then(data => {
-        data.forEach((ele) => {
+        data.roles.forEach((ele) => {
             let opt = document.createElement("option")
             opt.value = ele
             opt.textContent = ele 
-            
+            role.appendChild(opt)
         })
     })
+    .catch(err => console.log("Erreur lors du chargement des rôles :", err))
 
 
 const sectionform = document.getElementById("sectionForm")
@@ -17,6 +18,7 @@ const butpopup = document.querySelector("#popupform")
 const clossbut = document.getElementById("iconClosse")
 const addexpe = document.getElementById("addexperience")
 const addempl = document.getElementById("addemployer")
+const role = document.getElementById("Role")
 const rooms = Array.from(document.querySelector("#worckspace").children)
 let placecart = document.querySelector("#placeWorker");
 
@@ -43,14 +45,7 @@ function affichPhoto(url) {
 
 }
 
-function addnewemployaer() {
-    const nom = document.getElementById("NameEmployer");
-    const role = document.getElementById("Role")
-    const email = document.getElementById("Email")
-    const numbertele = document.getElementById("Telephone")
 
-
-}
 function deletexperenceform() {
     let formdelet = document.querySelectorAll(".formexper")
     formdelet.forEach((ele) => ele.remove());
@@ -75,7 +70,7 @@ function addexperience() {
 
 function clearinput() {
     document.querySelector("#NameEmployer").value = "" 
-    document.querySelector("#Role").value = ""
+    role.value = ""
     photoinp.value = ""
     document.querySelector("#Email").value = ""
     document.querySelector("#Telephone").value = ""
@@ -216,9 +211,13 @@ function formadd(room , romclick) {
     })
     document.querySelector("#placecard").addEventListener("click" , (e) => {
         if(e.target.matches("[data-id]")){
-            let emplafich = employer.find(ele => ele.id == e.target.dataset.id)
-            emplafich.room = room ;
-            ajouteraroom(emplafich , popupaffich , romclick)
+            if(romclick.children.length < 6) { 
+                let emplafich = employer.find(ele => ele.id == e.target.dataset.id)
+                emplafich.room = room ;
+                ajouteraroom(emplafich , popupaffich , romclick)
+            }else {
+                alert("Capacite atteinte pour cette room !");
+            }
         }
     })
 }
@@ -313,7 +312,7 @@ addempl.addEventListener("click" , (e) => {
     let allexper = addexperience()
     let empl = {
         nam : document.querySelector("#NameEmployer").value , 
-        role : document.querySelector("#Role").value ,
+        role : role.value ,
         photo : photoinp.value ,
         email : document.querySelector("#Email").value ,
         telephone : document.querySelector("#Telephone").value ,
