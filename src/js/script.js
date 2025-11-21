@@ -25,6 +25,8 @@ let placecart = document.querySelector("#placeWorker");
 let counterID = 0;
 let employer = [];
 
+checkworckerroom() ;
+
 const romandrolle = {
     conference : [ "Manager" , "Autres roles" , "Nettoyage" , "Techniciens IT"] ,
     Reception : ["Receptionnistes" , "Manager" , "Nettoyage" ] ,
@@ -81,7 +83,7 @@ function clearinput() {
 function affichercart() {
     placecart.innerHTML = ``
     employer.forEach((ele) => {
-        if(ele.room == "null"){
+        if(ele.room == "non-assignes"){
             let cart = document.createElement("div");
             cart.className = "flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200"
             cart.innerHTML = `
@@ -163,7 +165,7 @@ function afficherdetailsofworckers(idset) {
 
 
 function formadd(room , romclick) {
-    let emplafich = employer.filter(ele => ele.room == "null" && romandrolle[room].includes(ele.role)) ;
+    let emplafich = employer.filter(ele =>  romandrolle[room].includes(ele.role)) ;
     
     let popupaffich = document.createElement("section")
     popupaffich.className = "absolute top-0 left-0  w-screen h-screen bg-black/50"
@@ -214,7 +216,9 @@ function formadd(room , romclick) {
             if(romclick.children.length < 6) { 
                 let emplafich = employer.find(ele => ele.id == e.target.dataset.id)
                 emplafich.room = room ;
+                deletemployerinroom(emplafich.id) ;
                 ajouteraroom(emplafich , popupaffich , romclick)
+
             }else {
                 alert("Capacite atteinte pour cette room !");
             }
@@ -227,7 +231,8 @@ function ajouteraroom(empl , section , romclick) {
     section.remove() ;
     affichercart();
     let cart = document.createElement("div")
-    cart.className = "flex  items-center  gap-3 px-2 py-1 my-1 bg-white rounded-3xl shadow-md border border-gray-200";
+    cart.setAttribute("data-iddetails" , empl.id)
+    cart.className = "affichdetails flex  items-center  gap-3 px-2 py-1 my-1 bg-white rounded-3xl shadow-md border border-gray-200";
     cart.innerHTML = `
         <div class="rounded-full overflow-hidden size-8 border border-gray-600 ">
         <img src="${empl.photo}" alt="">
@@ -245,8 +250,9 @@ function ajouteraroom(empl , section , romclick) {
         </button>
         `
         romclick.appendChild(cart)
+        checkworckerroom()
         
-    }
+}
 
     
 function validationsform(exp) {
@@ -283,15 +289,27 @@ function validationsform(exp) {
 
 function checkworckerroom(){
     rooms.forEach((ele) => {
-        if(ele.children.length < 2) {
-            ele.classList.add("bg-red-500/30")
-        }else {
-            ele.classList.remove("bg-red-500/30")
+        if(ele.classList.contains("check")){
+            if(ele.children.length < 2) {
+                ele.classList.add("bg-red-500/30")
+            }else {
+                ele.classList.remove("bg-red-500/30")
+            }
+
         }
     })
 
 }
 
+
+function deletemployerinroom(id) {
+    rooms.forEach(room => {
+        let card = room.querySelector(`[data-iddetails="${id}"]`);
+        if(card){
+            card.remove();
+        }
+    });
+}
 
 addexpe.addEventListener("click" , () => {
 
@@ -351,11 +369,11 @@ addempl.addEventListener("click" , (e) => {
     
     let allexper = addexperience()
 
-    let valid = validationsform(allexper)
+    // let valid = validationsform(allexper)
 
-    if(!valid){
-        return
-    }
+    // if(!valid){
+    //     return
+    // }
 
     let empl = {
         nam : document.querySelector("#NameEmployer").value , 
@@ -365,7 +383,7 @@ addempl.addEventListener("click" , (e) => {
         telephone : document.querySelector("#Telephone").value ,
         experience : allexper,
         id : counterID++ , 
-        room : "null"
+        room : "non-assignes"
     }
 
 
@@ -396,11 +414,17 @@ rooms.forEach((ele) => {
             console.log(idremv)
             let removeele = employer.find(ele => ele.id == idremv)
             console.log(removeele)
-            removeele.room = "null"
+            removeele.room = "non-assignes"
             e.target.closest("[data-id]").parentElement.remove();
             affichercart();
+            checkworckerroom();
+            return ;
         }
         
+        if(e.target.closest(".affichdetails") && e.target){
+            console.log(e.target.closest(".affichdetails").dataset.iddetails)
+            afficherdetailsofworckers(e.target.closest(".affichdetails").dataset.iddetails);
+        }
     })
 })
 
