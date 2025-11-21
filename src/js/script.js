@@ -239,20 +239,21 @@ function ajouteraroom(empl , section , romclick) {
         </div>
         
         <button data-id="${empl.id}" class="returnsidebar cursor-pointer text-red-500 hover:text-red-600 ">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
         </button>
-    `
-    romclick.appendChild(cart)
+        `
+        romclick.appendChild(cart)
+        
+    }
+
     
-}
-
-
-function validationsform() {
+function validationsform(exp) {
     const verifname = /^[A-Za-z ]+$/
-    const verifurl = /^(https?:\/\/ )?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const verifemail = /^/
+    const verifurl = /^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const verifemail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
+    const verifnumber = /^(\+212|0)(5|6|7)[0-9]{8}/
     
     if(!verifname.test(document.querySelector("#NameEmployer").value )){
         alert("name is faut")
@@ -260,12 +261,36 @@ function validationsform() {
     }else if (!verifurl.test(photoinp.value)){
         alert("url is faut")
         return false ;
+    }else if (!verifemail.test(document.querySelector("#Email").value )){
+        alert("email is faut")
+        return false ;
+    }else if(!verifnumber.test(document.querySelector("#Telephone").value )){
+        alert("number is faut")
+        return false ;
+    }else if (exp.length > 0){
+        for(ele of exp){
+            let datdeb = new Date(ele.datedebut)
+            let datfin = new Date(ele.datefin)
+            if(datdeb > datfin){
+                alert("date debut must be before date fin")
+                return false
+            }
+        }
     }
-
     return true ;
 }
 
 
+function checkworckerroom(){
+    rooms.forEach((ele) => {
+        if(ele.children.length < 2) {
+            ele.classList.add("bg-red-500/30")
+        }else {
+            ele.classList.remove("bg-red-500/30")
+        }
+    })
+
+}
 
 
 addexpe.addEventListener("click" , () => {
@@ -326,7 +351,7 @@ addempl.addEventListener("click" , (e) => {
     
     let allexper = addexperience()
 
-    let valid = validationsform()
+    let valid = validationsform(allexper)
 
     if(!valid){
         return
@@ -375,6 +400,7 @@ rooms.forEach((ele) => {
             e.target.closest("[data-id]").parentElement.remove();
             affichercart();
         }
+        
     })
 })
 
