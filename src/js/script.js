@@ -257,7 +257,7 @@ function ajouteraroom(empl , section , romclick) {
     
 function validationsform(exp) {
     const verifname = /^[A-Za-z ]+$/
-    const verifurl = /^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const verifurl = /^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/
     const verifemail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
     const verifnumber = /^(\+212|0)(5|6|7)[0-9]{8}/
     
@@ -369,11 +369,11 @@ addempl.addEventListener("click" , (e) => {
     
     let allexper = addexperience()
 
-    // let valid = validationsform(allexper)
+    let valid = validationsform(allexper)
 
-    // if(!valid){
-    //     return
-    // }
+    if(!valid){
+        return
+    }
 
     let empl = {
         nam : document.querySelector("#NameEmployer").value , 
