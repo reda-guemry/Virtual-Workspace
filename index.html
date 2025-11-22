@@ -8,16 +8,20 @@
 </head>
 <body class=" " >
   <main >
-    <section class=" h-screen w-full flex ">
-      <div class="w-[30%] h-full px-3 py-3">
-        <h1 class="font-bold text-3xl mb-2.5 text-center">Staff Members</h1>
+    <section class=" h-screen w-full flex flex-col md:flex-row ">
+      <div class="md:w-[30%] h-full px-3 py-3">
+        <h1 class="font-bold text-xl md:text-2xl mb-2.5 text-center">Staff Members</h1>
         <div id="placeWorker" class=""></div>
         
-        <button id="popupform" class="px-8 py-2 bg-green-500 hover:bg-green-600 text-white rounded-2xl  block mx-auto ">Add new worker</button>
+        <button id="popupform" class="px-8 md:px-5 lg:px-8 py-2 bg-green-500 hover:bg-green-600 text-white rounded-2xl  block mx-auto ">Add new worker</button>
 
       </div>
 
-      <div id="worckspace" class="w-full h-full bg-[url(/src/img/bureuimg.jpg)] bg-center bg-no-repeat bg-cover grid grid-cols-[37%_18%_25%_20%] grid-rows-[35%_31%_32.5%] ">
+      <div id="worckspace" class="w-full bg-[url(/src/img/bureuimg.jpg)] bg-center bg-no-repeat bg-contain grid grid-cols-[37%_18%_25%_20%]  grid-rows-[35%_31%_32.5%] ">
+        
+        <div>
+          
+        </div>
           <div   class="room border-r-8 border-b-8 flex justify-center items-center ">
               <button data-room="conference" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
           </div>
