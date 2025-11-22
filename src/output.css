@@ -200,6 +200,12 @@
   .absolute {
     position: absolute;
   }
+  .relative {
+    position: relative;
+  }
+  .inset-0 {
+    inset: calc(var(--spacing) * 0);
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
@@ -401,8 +407,35 @@
   .grid-cols-\[1fr_18\%_25\%_20\%\] {
     grid-template-columns: 1fr 18% 25% 20%;
   }
+  .grid-cols-\[3\%_18\%_25\%_20\%\] {
+    grid-template-columns: 3% 18% 25% 20%;
+  }
+  .grid-cols-\[37\%_15\%_25\%_20\%\] {
+    grid-template-columns: 37% 15% 25% 20%;
+  }
   .grid-cols-\[37\%_18\%_25\%_20\%\] {
     grid-template-columns: 37% 18% 25% 20%;
+  }
+  .grid-cols-\[39\%_15\%_23\%_1\%\] {
+    grid-template-columns: 39% 15% 23% 1%;
+  }
+  .grid-cols-\[39\%_15\%_23\%_2\%\] {
+    grid-template-columns: 39% 15% 23% 2%;
+  }
+  .grid-cols-\[39\%_15\%_23\%_21\%\] {
+    grid-template-columns: 39% 15% 23% 21%;
+  }
+  .grid-cols-\[39\%_15\%_23\%_23\%\] {
+    grid-template-columns: 39% 15% 23% 23%;
+  }
+  .grid-cols-\[39\%_15\%_25\%_20\%\] {
+    grid-template-columns: 39% 15% 25% 20%;
+  }
+  .grid-cols-\[39\%_15\%_25\%_21\%\] {
+    grid-template-columns: 39% 15% 25% 21%;
+  }
+  .grid-cols-\[39\%_18\%_25\%_20\%\] {
+    grid-template-columns: 39% 18% 25% 20%;
   }
   .grid-cols-\[40\%_15\%_25\%_20\%\] {
     grid-template-columns: 40% 15% 25% 20%;

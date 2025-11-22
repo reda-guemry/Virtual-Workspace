@@ -9,7 +9,7 @@
 <body class=" " >
   <main >
     <section class=" h-screen w-full flex flex-col md:flex-row ">
-      <div class="md:w-[30%] h-full px-3 py-3">
+      <div class="md:w-[30%] md:h-full px-3 py-3">
         <h1 class="font-bold text-xl md:text-2xl mb-2.5 text-center">Staff Members</h1>
         <div id="placeWorker" class=""></div>
         
@@ -17,11 +17,9 @@
 
       </div>
 
-      <div id="worckspace" class="w-full bg-[url(/src/img/bureuimg.jpg)] bg-center bg-no-repeat bg-contain grid grid-cols-[37%_18%_25%_20%]  grid-rows-[35%_31%_32.5%] ">
-        
-        <div>
-          
-        </div>
+      <div  class="w-full relative ">
+        <img src="/src/img/bureuimg.jpg" class="w-full h-full" alt="">
+        <div id="worckspace" class="absolute inset-0 grid grid-cols-[39%_15%_23%_23%]  grid-rows-[35%_31%_32.5%] ">
           <div   class="room border-r-8 border-b-8 flex justify-center items-center ">
               <button data-room="conference" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
           </div>
@@ -45,6 +43,8 @@
           <div class="room row-start-3 col-start-4   border-l-8 border-t-8 flex justify-center items-center">
             <button data-room="archives" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
           </div>
+
+        </div>
       </div>
 
     </section>

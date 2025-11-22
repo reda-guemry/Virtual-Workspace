@@ -369,11 +369,11 @@ addempl.addEventListener("click" , (e) => {
     
     let allexper = addexperience()
 
-    let valid = validationsform(allexper)
+    // let valid = validationsform(allexper)
 
-    if(!valid){
-        return
-    }
+    // if(!valid){
+    //     return
+    // }
 
     let empl = {
         nam : document.querySelector("#NameEmployer").value , 
