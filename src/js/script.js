@@ -88,7 +88,7 @@ function affichercart() {
             cart.className = "flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200"
             cart.innerHTML = `
                 <div class="rounded-full overflow-hidden size-14 ">
-                <img src="${ele.photo}" alt="">
+                <img src="${ele.photo}" class="aspect-square" alt="">
                 </div>
 
                 <div class="flex-1 min-w-0">
@@ -175,7 +175,7 @@ function formadd(room , romclick) {
         cart += `
             <div class ="flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200">
                 <div class="rounded-full overflow-hidden size-14 ">
-                <img src="${ele.photo}" alt="">
+                <img src="${ele.photo}" class="aspect-square" alt="">
                 </div>
                 
                 <div class="flex-1 min-w-0">
@@ -407,7 +407,6 @@ rooms.forEach((ele) => {
     ele.addEventListener("click" , (e) => {
         if(e.target.dataset.room){
             formadd(e.target.dataset.room , e.currentTarget);
-
         }
         if(e.target.closest("[data-id]")){
             let idremv = e.target.closest("[data-id]").dataset.id
