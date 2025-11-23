@@ -15,35 +15,35 @@
         <img src="/src/img/bureuimg.jpg" class="w-full h-full" alt="">
         <div id="worckspace" class="absolute inset-0 grid grid-cols-[39%_15%_23%_23%]  grid-rows-[35%_31%_32.5%] ">
           <div   class="room border-r-8 border-b-8 flex justify-center items-center ">
-              <button data-room="conference" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
+              <button data-room="conference" class=" rounded-b-xl  px-1.5 md:px-3 md:py-1 bg-green-100 hover:bg-white/70 cursor-pointer  self-start ">+</button>
           </div>
 
           <div  class="room check row-start-2 row-end-4  flex justify-center items-center border-r-8 border-t-8">
-            <button data-room="Reception" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
+            <button data-room="Reception" class=" rounded-b-xl px-1.5 md:px-3 md:py-1 bg-green-100 hover:bg-white/70 cursor-pointer  self-start">+</button>
           </div>
 
           <div  class="room check col-start-3  border-x-8 border-b-8 flex justify-center items-center">
-            <button data-room="serveurs" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
+            <button data-room="serveurs" class=" rounded-b-xl px-1.5 md:px-3 md:py-1 bg-green-100 hover:bg-white/70 cursor-pointer  self-start ">+</button>
           </div>
 
           <div  class="room check col-start-4  border-l-8 border-b-8 flex justify-center items-center">
-            <button data-room="securite" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
+            <button data-room="securite" class=" rounded-b-xl px-1.5 md:px-3 md:py-1 bg-green-100 hover:bg-white/70 cursor-pointer  self-start ">+</button>
           </div>
 
           <div class="room check row-start-3 col-start-3   border-t-8 border-x-8 flex justify-center items-center ">
-            <button data-room="personnel" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
+            <button data-room="personnel" class=" rounded-b-xl px-1.5 md:px-3 md:py-1 bg-green-100 hover:bg-white/70 cursor-pointer  self-start ">+</button>
           </div>
 
           <div class="room row-start-3 col-start-4   border-l-8 border-t-8 flex justify-center items-center">
-            <button data-room="archives" class=" rounded-full px-3 py-1 bg-green-100 hover:bg-white/70 cursor-pointer ">+</button>
+            <button data-room="archives" class=" rounded-b-xl px-1.5 md:px-3 md:py-1 bg-green-100 hover:bg-white/70 cursor-pointer  self-start ">+</button>
           </div>
 
         </div>
       </div>
 
-      <div class="md:w-[30%] h- md:h-full px-3 py-3">
+      <div class="md:w-[30%] h-full px-3 py-3">
         <h1 class="font-bold text-xl md:text-2xl mb-2.5 text-center">Staff Members</h1>
-        <div id="placeWorker" class="max-h-[85%] overflow-y-auto "></div>
+        <div id="placeWorker" class="max-h-[75%] md:max-h-[85%] overflow-y-auto "></div>
         
         <button id="popupform" class="px-8 md:px-5 lg:px-8 py-2 bg-green-500 hover:bg-green-600 text-white rounded-2xl  mt-2 block mx-auto ">Add new worker</button>
 
@@ -68,7 +68,6 @@
           <label class="font-bold text-lg" for="Role">Role</label>
           <select class="border outline-none focus:border-green-400 px-3 py-1.5 rounded-2xl  " id="Role" >
              <option value="" disabled selected hidden>Choisir un rôle</option>
-              
           </select>
 
           <label class="font-bold text-lg" for="Photo">Photo (URL)</label>

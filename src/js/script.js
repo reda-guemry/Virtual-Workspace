@@ -122,7 +122,7 @@ function afficherdetailsofworckers(idset) {
     })
 
     sectiondetails.innerHTML = `
-        <div class="allfomr bg-white p-8 rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[50%] max-h-[90vh] overflow-y-auto ">
+        <div class="allfomr bg-white p-8 rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[90vw]  md:w-[60vw] lg:w-[40vw]  max-h-[90vh] overflow-y-auto ">
             
             <button class="closform cursor-pointer text-gray-400 hover:text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
@@ -175,11 +175,11 @@ function formadd(room , romclick) {
         cart += `
             <div class ="flex justify-between items-center w-full gap-3 px-4 py-3 my-3 bg-white rounded-3xl shadow-md border border-gray-200">
                 <div class="rounded-full overflow-hidden size-14 ">
-                <img src="${ele.photo}" class="aspect-square" alt="">
+                <img src="${ele.photo}" class="aspect-square" alt="phto ${ele.nam}">
                 </div>
                 
                 <div class="flex-1 min-w-0">
-                <h2 class="font-semibold text-gray-800 text-sm">${ele.nam}</h2>
+                <h2 class="font-semibold text-gray-800 text-xs md:text-sm">${ele.nam}</h2>
                 <p class="text-gray-500 text-xs">${ele.role}</p>
                 </div>
                 
@@ -188,10 +188,10 @@ function formadd(room , romclick) {
         `
     })
     popupaffich.innerHTML = `
-        <div class="allfomr bg-white p-8 rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[50%] max-h-[90vh] overflow-y-auto ">
+        <div class="allfomr bg-white p-8 rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[90vw]  md:w-[60vw] lg:w-[40vw]  max-h-[90vh] overflow-y-auto ">
             <div >
                 <div class="flex items-center justify-between">
-                    <h3 class="font-bold text-3xl">Employer disponible</h3>
+                    <h3 class="font-bold text-xl md:text-3xl">Employer disponible</h3>
                     <button class="closform cursor-pointer text-gray-400 hover:text-gray-600">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -260,6 +260,14 @@ function validationsform(exp) {
     const verifurl = /^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/
     const verifemail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
     const verifnumber = /^(\+212|0)(5|6|7)[0-9]{8}/
+    const verifallinp = document.querySelectorAll("input")
+    
+    for(ele of verifallinp) {
+        if(ele.value == ""){
+            alert("fill all input ")
+            return false ;
+        }
+    }
     
     if(!verifname.test(document.querySelector("#NameEmployer").value )){
         alert("name is faut")
@@ -282,6 +290,9 @@ function validationsform(exp) {
                 return false
             }
         }
+    }else if (role.value == ""){
+        alert("fill the Role")
+        return false
     }
     return true ;
 }
