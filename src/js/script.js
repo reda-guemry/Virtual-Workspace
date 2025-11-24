@@ -31,6 +31,7 @@ localstorgeromm() ;
 checkworckerroom() ;
 
 
+
 const romandrolle = {
     conference : [ "Manager" , "Autres roles" , "Nettoyage" , "Techniciens IT"] ,
     Reception : ["Receptionnistes" , "Manager" , "Nettoyage" ] ,
@@ -44,12 +45,10 @@ const romandrolle = {
 function localstorgeromm() {
     rooms.forEach(ele => {
         let room = ele.querySelector("[data-room]")
-        let emply = employer.find(ele => ele.room == room.dataset.room)
-
-        if(emply) {
-            ajouteraroom(emply , room.parentElement)
-        }
-
+        let emply = employer.filter(ele => ele.room == room.dataset.room)
+        emply.forEach(ele => {
+            ajouteraroom(ele , room.parentElement)
+        })
     })
 }
 
@@ -251,17 +250,12 @@ function ajouteraroom(empl , romclick) {
     cart.setAttribute("data-iddetails" , empl.id)
     cart.className = "affichdetails flex  w-fit h-fit  items-center  gap-1 px-2 py-1 my-1 bg-white rounded-3xl shadow-md border border-gray-200";
     cart.innerHTML = `
-        <div class="rounded-full overflow-hidden h-[6vh] w-[6vh] border border-gray-600 ">
+        <div class="rounded-full overflow-hidden h-[5vh] w-[5vh] border border-gray-600 ">
         <img src="${empl.photo}" class="w-full h-full " alt="eureur">
         </div>
-        
-        <div class=" min-w-0">
-        <h2 class="hidden lg:block font-semibold text-gray-800 text-[10px] truncate">${empl.nam}</h2>
-        <p class="hidden lg:block text-gray-500 text-[10px] truncate">${empl.role}</p>
-        </div>
-        
+       
         <button data-id="${empl.id}" class="returnsidebar cursor-pointer text-red-500 hover:text-red-600 ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class=" w-4 h-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class=" w-5 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
         </button>
