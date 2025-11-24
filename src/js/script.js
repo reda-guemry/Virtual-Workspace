@@ -22,10 +22,14 @@ const role = document.getElementById("Role")
 const rooms = Array.from(document.querySelector("#worckspace").children)
 let placecart = document.querySelector("#placeWorker");
 
-let counterID = 0;
-let employer = [];
+let employer =  JSON.parse(localStorage.getItem("allemployer")) || [];
+let counterID = employer.length > 0 ? employer[employer.length - 1].id + 1 : 0;
+
+affichercart() ; 
+localstorgeromm() ;
 
 checkworckerroom() ;
+
 
 const romandrolle = {
     conference : [ "Manager" , "Autres roles" , "Nettoyage" , "Techniciens IT"] ,
@@ -37,6 +41,17 @@ const romandrolle = {
 }
 
 
+function localstorgeromm() {
+    rooms.forEach(ele => {
+        let room = ele.querySelector("[data-room]")
+        let emply = employer.find(ele => ele.room == room.dataset.room)
+
+        if(emply) {
+            ajouteraroom(emply , room.parentElement)
+        }
+
+    })
+}
 
 function affichPhoto(url) {
     let plaveThePhoto = document.querySelector("#displayImag")
@@ -81,7 +96,8 @@ function clearinput() {
 
 
 function affichercart() {
-    placecart.innerHTML = ``
+    placecart.innerHTML = ``;
+    console.log(employer)
     employer.forEach((ele) => {
         if(ele.room == "non-assignes"){
             let cart = document.createElement("div");
@@ -216,8 +232,10 @@ function formadd(room , romclick) {
             if(romclick.children.length < 6) { 
                 let emplafich = employer.find(ele => ele.id == e.target.dataset.id)
                 emplafich.room = room ;
+                localStorage.setItem("allemployer" , JSON.stringify(employer))
                 deletemployerinroom(emplafich.id) ;
-                ajouteraroom(emplafich , popupaffich , romclick)
+                popupaffich.remove() ;
+                ajouteraroom(emplafich , romclick)
 
             }else {
                 alert("Capacite atteinte pour cette room !");
@@ -227,24 +245,23 @@ function formadd(room , romclick) {
 }
 
 
-function ajouteraroom(empl , section , romclick) {
-    section.remove() ;
+function ajouteraroom(empl , romclick) {
     affichercart();
     let cart = document.createElement("div")
     cart.setAttribute("data-iddetails" , empl.id)
     cart.className = "affichdetails flex  w-fit h-fit  items-center  gap-1 px-2 py-1 my-1 bg-white rounded-3xl shadow-md border border-gray-200";
     cart.innerHTML = `
-        <div class="rounded-full overflow-hidden h-[5vh] w-[5vh] border border-gray-600 ">
+        <div class="rounded-full overflow-hidden h-[6vh] w-[6vh] border border-gray-600 ">
         <img src="${empl.photo}" class="w-full h-full " alt="eureur">
         </div>
         
         <div class=" min-w-0">
-        <h2 class="font-semibold text-gray-800 text-[10px] truncate">${empl.nam}</h2>
-        <p class="text-gray-500 text-[10px] truncate">${empl.role}</p>
+        <h2 class="hidden lg:block font-semibold text-gray-800 text-[10px] truncate">${empl.nam}</h2>
+        <p class="hidden lg:block text-gray-500 text-[10px] truncate">${empl.role}</p>
         </div>
         
         <button data-id="${empl.id}" class="returnsidebar cursor-pointer text-red-500 hover:text-red-600 ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class=" w-2 h-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class=" w-4 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
         </button>
@@ -401,6 +418,8 @@ addempl.addEventListener("click" , (e) => {
     
     employer.push(empl);
 
+    localStorage.setItem("allemployer" , JSON.stringify(employer))
+
     affichercart();
 
     sectionform.classList.toggle("hidden");
@@ -418,21 +437,21 @@ rooms.forEach((ele) => {
     ele.addEventListener("click" , (e) => {
         if(e.target.dataset.room){
             formadd(e.target.dataset.room , e.currentTarget);
-        }
-        if(e.target.closest("[data-id]")){
+        }else if(e.target.closest("[data-id]")){
             let idremv = e.target.closest("[data-id]").dataset.id
             console.log(idremv)
             let removeele = employer.find(ele => ele.id == idremv)
             console.log(removeele)
             removeele.room = "non-assignes"
+            localStorage.setItem("allemployer" , JSON.stringify(employer))
+
             e.target.closest("[data-id]").parentElement.remove();
             affichercart();
             checkworckerroom();
+            
             return ;
-        }
-        
-        if(e.target.closest(".affichdetails") && e.target){
-            console.log(e.target.closest(".affichdetails").dataset.iddetails)
+        }else if(e.target.closest(".affichdetails") && e.target){
+
             afficherdetailsofworckers(e.target.closest(".affichdetails").dataset.iddetails);
         }
     })
