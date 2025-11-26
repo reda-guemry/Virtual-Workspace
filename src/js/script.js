@@ -436,14 +436,11 @@ rooms.forEach((ele) => {
             console.log(removeele)
             removeele.room = "non-assignes"
             localStorage.setItem("allemployer" , JSON.stringify(employer))
-
             e.target.closest("[data-id]").parentElement.remove();
             affichercart();
             checkworckerroom();
-            
-            return ;
-        }else if(e.target.closest(".affichdetails") && e.target){
 
+        }else if(e.target.closest(".affichdetails")){
             afficherdetailsofworckers(e.target.closest(".affichdetails").dataset.iddetails);
         }
     })
