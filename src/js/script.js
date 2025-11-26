@@ -31,7 +31,6 @@ localstorgeromm() ;
 checkworckerroom() ;
 
 
-
 const romandrolle = {
     conference : [ "Manager" , "Autres roles" , "Nettoyage" , "Techniciens IT"] ,
     Reception : ["Receptionnistes" , "Manager" , "Nettoyage" ] ,
@@ -58,7 +57,6 @@ function affichPhoto(url) {
     img.setAttribute("src" , url)
     plaveThePhoto.innerHTML = ``
     plaveThePhoto.appendChild(img)
-
 }
 
 
@@ -248,14 +246,14 @@ function ajouteraroom(empl , romclick) {
     affichercart();
     let cart = document.createElement("div")
     cart.setAttribute("data-iddetails" , empl.id)
-    cart.className = "affichdetails flex  w-fit h-fit  items-center  gap-1 px-2 py-1 my-1 bg-white rounded-3xl shadow-md border border-gray-200";
+    cart.className = "affichdetails flex  w-fit h-fit  items-center  gap-1 px-1 py-0.5 md:px-2 md:py-1 my-1 bg-white rounded-3xl shadow-md border border-gray-200";
     cart.innerHTML = `
-        <div class="rounded-full overflow-hidden h-[5vh] w-[5vh] border border-gray-600 ">
+        <div class="rounded-full overflow-hidden size-[2.5vh] md:size-[5vh] border border-gray-600 ">
         <img src="${empl.photo}" class="w-full h-full " alt="eureur">
         </div>
        
         <button data-id="${empl.id}" class="returnsidebar cursor-pointer text-red-500 hover:text-red-600 ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class=" w-5 h-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-2.5 h-3 md:w-5 md:h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
         </button>

@@ -324,23 +324,30 @@
     width: calc(var(--spacing) * 24);
     height: calc(var(--spacing) * 24);
   }
+  .size-\[2\.5vh\] {
+    width: 2.5vh;
+    height: 2.5vh;
+  }
+  .size-\[2vh\] {
+    width: 2vh;
+    height: 2vh;
+  }
+  .size-\[3vh\] {
+    width: 3vh;
+    height: 3vh;
+  }
+  .size-\[5vh\] {
+    width: 5vh;
+    height: 5vh;
+  }
+  .h-3 {
+    height: calc(var(--spacing) * 3);
+  }
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
-  .h-\[4vh\] {
-    height: 4vh;
-  }
-  .h-\[5vh\] {
-    height: 5vh;
-  }
-  .h-\[6vh\] {
-    height: 6vh;
-  }
   .h-\[90vh\] {
     height: 90vh;
-  }
-  .h-\[vh\] {
-    height: vh;
   }
   .h-fit {
     height: fit-content;
@@ -357,20 +364,14 @@
   .max-h-\[90vh\] {
     max-height: 90vh;
   }
-  .w-4 {
-    width: calc(var(--spacing) * 4);
+  .w-2 {
+    width: calc(var(--spacing) * 2);
+  }
+  .w-2\.5 {
+    width: calc(var(--spacing) * 2.5);
   }
   .w-5 {
     width: calc(var(--spacing) * 5);
-  }
-  .w-\[4vh\] {
-    width: 4vh;
-  }
-  .w-\[5vh\] {
-    width: 5vh;
-  }
-  .w-\[6vh\] {
-    width: 6vh;
   }
   .w-\[90vw\] {
     width: 90vw;
@@ -435,15 +436,6 @@
   }
   .justify-between {
     justify-content: space-between;
-  }
-  .justify-center {
-    justify-content: center;
-  }
-  .justify-end {
-    justify-content: flex-end;
-  }
-  .justify-evenly {
-    justify-content: space-evenly;
   }
   .justify-items-center {
     justify-items: center;
@@ -608,6 +600,12 @@
   .px-8 {
     padding-inline: calc(var(--spacing) * 8);
   }
+  .py-0 {
+    padding-block: calc(var(--spacing) * 0);
+  }
+  .py-0\.5 {
+    padding-block: calc(var(--spacing) * 0.5);
+  }
   .py-1 {
     padding-block: calc(var(--spacing) * 1);
   }
@@ -622,9 +620,6 @@
   }
   .text-center {
     text-align: center;
-  }
-  .align-middle {
-    vertical-align: middle;
   }
   .font-sans {
     font-family: var(--font-sans);
@@ -737,9 +732,25 @@
       border-color: var(--color-green-400);
     }
   }
+  .md\:size-\[5vh\] {
+    @media (width >= 48rem) {
+      width: 5vh;
+      height: 5vh;
+    }
+  }
+  .md\:h-6 {
+    @media (width >= 48rem) {
+      height: calc(var(--spacing) * 6);
+    }
+  }
   .md\:max-h-\[85\%\] {
     @media (width >= 48rem) {
       max-height: 85%;
+    }
+  }
+  .md\:w-5 {
+    @media (width >= 48rem) {
+      width: calc(var(--spacing) * 5);
     }
   }
   .md\:w-\[30\%\] {
@@ -755,6 +766,11 @@
   .md\:flex-row-reverse {
     @media (width >= 48rem) {
       flex-direction: row-reverse;
+    }
+  }
+  .md\:px-2 {
+    @media (width >= 48rem) {
+      padding-inline: calc(var(--spacing) * 2);
     }
   }
   .md\:px-3 {
